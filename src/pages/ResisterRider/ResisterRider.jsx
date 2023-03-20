@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import SmallLoader from "../../utilities/SmallLoader";
@@ -55,7 +55,7 @@ const ResisterRider = () => {
                               const licenceImage = data.data.display_url;
 
                               const formData = new FormData();
-                              formData.append("image", profilePicture);
+                              formData.append("image", nidPicture);
                               fetch(url, {
                                  method: "POST",
                                  body: formData,
@@ -84,7 +84,8 @@ const ResisterRider = () => {
                                     console.log(userInfo);
                                  });
                            });
-                        toast.success("Created user succesfully...!!");
+                        form.reset();
+                        toast.success("Created rider user succesfully...!!");
                         setLoading(false);
                      })
                      .catch((err) => {
@@ -281,7 +282,7 @@ const ResisterRider = () => {
                               type="submit"
                               className="bg-purple-500 hover:bg-purple-600 rounded px-4 py-1.5  font-semibold text-gray-100 "
                            >
-                              {loading ? <SmallLoader /> : "Submit"}
+                              {loading ? <SmallLoader /> : "Sign Up"}
                            </button>
                         </div>
                      </div>

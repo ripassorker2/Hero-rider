@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import SmallLoader from "../../utilities/SmallLoader";
 
 const ResisterLearner = () => {
-   const { createUser, updateUserProfile, loading, setLoading } =
-      useContext(AuthContext);
+   const { createUser, updateUserProfile } = useContext(AuthContext);
+   const [loading, setLoading] = useState(false);
+   const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_key}`;
 
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -24,20 +26,59 @@ const ResisterLearner = () => {
          return toast.error("Password doesn't match");
       }
 
-      const userInfo = {
-         name,
-         email,
-         age,
+      createUser(email, password)
+         .then((result) => {
+            setLoading(true);
+            const formData = new FormData();
+            formData.append("image", profilePicture);
+            fetch(url, {
+               method: "POST",
+               body: formData,
+            })
+               .then((res) => res.json())
+               .then((data) => {
+                  const profileImage = data.data.display_url;
+                  updateUserProfile(name, profileImage)
+                     .then((data) => {
+                        const formData = new FormData();
+                        formData.append("image", nidPicture);
+                        fetch(url, {
+                           method: "POST",
+                           body: formData,
+                        })
+                           .then((res) => res.json())
+                           .then((data) => {
+                              const nidImage = data.data.display_url;
 
-         address,
-         phone,
-         vehicle,
-         nidPicture,
-         profilePicture,
-         password,
-         confirmPassword,
-      };
-      console.log(userInfo);
+                              const userInfo = {
+                                 name,
+                                 email,
+                                 age,
+                                 address,
+                                 phone,
+                                 role: "learner",
+                                 vehicle,
+                                 nidPicture: nidImage,
+                                 profilePicture: profileImage,
+                                 password,
+                                 confirmPassword,
+                              };
+                              console.log(userInfo);
+                           });
+                        form.reset();
+                        toast.success("Created learner user succesfully...!!");
+                        setLoading(false);
+                     })
+                     .catch((err) => {
+                        setLoading(false);
+                        return toast.error(err.message);
+                     });
+               });
+         })
+         .catch((err) => {
+            setLoading(false);
+            return toast.error(err.message);
+         });
    };
 
    return (
@@ -171,7 +212,7 @@ const ResisterLearner = () => {
                               type="submit"
                               className="bg-purple-500 hover:bg-purple-600 rounded px-4 py-1.5  font-semibold text-gray-100 "
                            >
-                              Submit
+                              {loading ? <SmallLoader /> : "Sign Up"}
                            </button>
                         </div>
                      </div>
