@@ -4,30 +4,30 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    return (
-      <div class="bg-gray-900 ">
-         <div class="px-4 py-5 mx-auto max-w-screen-xl w-full">
-            <div class="relative flex items-center justify-between">
+      <div className="bg-gray-900 ">
+         <div className="px-4 py-5 mx-auto max-w-screen-xl w-full">
+            <div className="relative flex items-center justify-between">
                <Link to={"/"} className="text-lg text-gray-100">
                   Hero Rider
                </Link>
-               <ul class="items-center hidden space-x-8 lg:flex">
+               <ul className="items-center hidden space-x-8 lg:flex">
                   <li>
                      <Link
                         to={"/login"}
-                        class="tracking-wide text-base text-gray-100 transition-colors duration-500 hover:text-purple-600"
+                        className="tracking-wide text-base text-gray-100 transition-colors duration-500 hover:text-purple-600"
                      >
                         Login
                      </Link>
                   </li>
                </ul>
-               <div class="lg:hidden">
+               <div className="lg:hidden">
                   <button
                      aria-label="Open Menu"
                      title="Open Menu"
-                     class="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
+                     className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline"
                      onClick={() => setIsMenuOpen(true)}
                   >
-                     <svg class="w-5 text-gray-600" viewBox="0 0 24 24">
+                     <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
                         <path
                            fill="currentColor"
                            d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
@@ -43,18 +43,18 @@ const Navbar = () => {
                      </svg>
                   </button>
                   {isMenuOpen && (
-                     <div class="absolute top-0 left-0 w-full">
-                        <div class="p-5 bg-white border rounded shadow-sm">
-                           <div class="flex items-center justify-between mb-4">
+                     <div className="absolute top-0 left-0 w-full">
+                        <div className="p-5 bg-white border rounded shadow-sm">
+                           <div className="flex items-center justify-between mb-4">
                               <div>
                                  <a
                                     href="/"
                                     aria-label="Company"
                                     title="Company"
-                                    class="inline-flex items-center"
+                                    className="inline-flex items-center"
                                  >
                                     <svg
-                                       class="w-8 text-deep-purple-accent-400"
+                                       className="w-8 text-deep-purple-accent-400"
                                        viewBox="0 0 24 24"
                                        strokeLinejoin="round"
                                        strokeWidth="2"
@@ -88,7 +88,7 @@ const Navbar = () => {
                                           height="12"
                                        />
                                     </svg>
-                                    <span class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
+                                    <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                                        Company
                                     </span>
                                  </a>
@@ -97,11 +97,11 @@ const Navbar = () => {
                                  <button
                                     aria-label="Close Menu"
                                     title="Close Menu"
-                                    class="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    className="p-2 -mt-2 -mr-2 transition duration-200 rounded hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                     onClick={() => setIsMenuOpen(false)}
                                  >
                                     <svg
-                                       class="w-5 text-gray-600"
+                                       className="w-5 text-gray-600"
                                        viewBox="0 0 24 24"
                                     >
                                        <path
@@ -113,13 +113,13 @@ const Navbar = () => {
                               </div>
                            </div>
                            <nav>
-                              <ul class="space-y-4">
+                              <ul className="space-y-4">
                                  <li>
                                     <a
                                        href="/"
                                        aria-label="Our product"
                                        title="Our product"
-                                       class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                       className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                     >
                                        Product
                                     </a>
@@ -129,7 +129,7 @@ const Navbar = () => {
                                        href="/"
                                        aria-label="Our product"
                                        title="Our product"
-                                       class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                       className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                     >
                                        Features
                                     </a>
@@ -139,7 +139,7 @@ const Navbar = () => {
                                        href="/"
                                        aria-label="Product pricing"
                                        title="Product pricing"
-                                       class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                       className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                     >
                                        Pricing
                                     </a>
@@ -149,7 +149,7 @@ const Navbar = () => {
                                        href="/"
                                        aria-label="About us"
                                        title="About us"
-                                       class="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                       className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                     >
                                        About us
                                     </a>
@@ -157,7 +157,7 @@ const Navbar = () => {
                                  <li>
                                     <a
                                        href="/"
-                                       class="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                                       className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
                                        aria-label="Sign up"
                                        title="Sign up"
                                     >
