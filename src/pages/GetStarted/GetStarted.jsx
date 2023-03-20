@@ -5,21 +5,10 @@ const GetStarted = () => {
    return (
       <div className="mx-auto max-w-screen-xl w-full my-14">
          <div className="grid md:grid-cols-2 gap-10">
-            {/* <div className="relative">
-               <figure>
-                  {" "}
-                  <img
-                     className="bg-cover hover:scale-105 w-full rounded-md duration-500"
-                     src="https://www.netsolutions.com/insights/wp-content/uploads/2020/12/the-10-best-rideshare-apps-of-2021.webp"
-                     alt=""
-                  />
-               </figure>
-               <h3 className="absolute top-[20%] right-[20%] text-3xl font-semibold text-purple-500">
-                  Get started as a Rider
-               </h3>
-            </div> */}
-
-            <div className="group relative shadow-lg rounded-lg cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30">
+            <Link
+               to={"/resisterRider"}
+               className="group relative shadow-lg rounded-lg cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30"
+            >
                <div className="h-96 full">
                   <img
                      className="h-full w-full  duration-500 group-hover:rotate-3 group-hover:scale-125"
@@ -33,8 +22,11 @@ const GetStarted = () => {
                      Get started as a Rider
                   </h3>
                </div>
-            </div>
-            <div className="group relative shadow-lg rounded-lg cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30">
+            </Link>
+            <Link
+               to={"/resisterLearner"}
+               className="group relative shadow-lg rounded-lg cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30"
+            >
                <div className="h-96 full">
                   <img
                      className="h-full w-full  duration-500 group-hover:rotate-3 group-hover:scale-125"
@@ -48,7 +40,7 @@ const GetStarted = () => {
                      Get started as a Learner
                   </h3>
                </div>
-            </div>
+            </Link>
          </div>
       </div>
    );

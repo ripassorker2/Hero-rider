@@ -7,7 +7,7 @@ const Navbar = () => {
       <div class="bg-gray-900 ">
          <div class="px-4 py-5 mx-auto max-w-screen-xl w-full">
             <div class="relative flex items-center justify-between">
-               <Link to={"/"} className="uppercase text-lg text-gray-100">
+               <Link to={"/"} className="text-lg text-gray-100">
                   Hero Rider
                </Link>
                <ul class="items-center hidden space-x-8 lg:flex">
@@ -17,14 +17,6 @@ const Navbar = () => {
                         class="tracking-wide text-base text-gray-100 transition-colors duration-500 hover:text-purple-600"
                      >
                         Login
-                     </Link>
-                  </li>
-                  <li>
-                     <Link
-                        to={"/resister"}
-                        class="tracking-wide text-base text-gray-100 transition-colors duration-500 hover:text-purple-600"
-                     >
-                        Sign up
                      </Link>
                   </li>
                </ul>
