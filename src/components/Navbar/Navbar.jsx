@@ -7,14 +7,14 @@ const Navbar = () => {
       <div className="bg-gray-900 ">
          <div className="px-4 py-5 mx-auto max-w-screen-xl w-full">
             <div className="relative flex items-center justify-between">
-               <Link to={"/"} className="text-lg text-gray-100">
+               <Link to={"/"} className="text-xl text-gray-100">
                   Hero Rider
                </Link>
                <ul className="items-center hidden space-x-8 lg:flex">
                   <li>
                      <Link
                         to={"/login"}
-                        className="tracking-wide text-base text-gray-100 transition-colors duration-500 hover:text-purple-600"
+                        className="tracking-wide text-lg text-gray-100 transition-colors duration-500 hover:text-purple-600"
                      >
                         Login
                      </Link>

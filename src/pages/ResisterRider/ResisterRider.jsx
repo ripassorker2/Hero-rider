@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-hot-toast";
 
 const ResisterRider = () => {
    const handleSubmit = (event) => {
@@ -13,12 +14,16 @@ const ResisterRider = () => {
       const nidPicture = form.nidPicture.files[0];
       const profilePicture = form.profilePicture.files[0];
       const area = form.area.value;
-      const carName = form.carName.value;
-      const carPalate = form.carPalate.value;
-      const carModel = form.carModel.value;
+      const vehicleName = form.carName.value;
+      const vehiclePalate = form.carPalate.value;
+      const vehicleModel = form.carModel.value;
       const vehicle = form.vehicle.value;
       const password = form.password.value;
       const confirmPassword = form.confirmPassword.value;
+
+      if (password !== confirmPassword) {
+         return toast.error("Password doesn't match");
+      }
 
       const userInfo = {
          name,
@@ -27,9 +32,9 @@ const ResisterRider = () => {
          area,
          address,
          phone,
-         carName,
-         carPalate,
-         carModel,
+         vehicleModel,
+         vehicleName,
+         vehiclePalate,
          vehicle,
          licencePicture,
          nidPicture,
@@ -45,7 +50,7 @@ const ResisterRider = () => {
          <div className="container max-w-screen-lg mx-auto">
             <div>
                <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                  <h2 className="font-semibold text-3xl text-center text-gray-600">
+                  <h2 className="font-semibold md:text-3xl text-xl border-b-2 mb-4 inline-block border-purple-500 text-center text-gray-600">
                      Resister as a Rider
                   </h2>
                   <form onSubmit={handleSubmit} className="">
@@ -91,6 +96,7 @@ const ResisterRider = () => {
                                  name="phone"
                                  className="h-10 border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Enter your phone number...!!"
+                                 required
                               />
                            </div>
 
@@ -101,6 +107,7 @@ const ResisterRider = () => {
                                  name="address"
                                  className="h-10 border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Enter your address...!!"
+                                 required
                               />
                            </div>
 
@@ -113,6 +120,7 @@ const ResisterRider = () => {
                                  name="licencePicture"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Driving licence picture...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-2">
@@ -122,6 +130,7 @@ const ResisterRider = () => {
                                  name="nidPicture"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="  NID picture...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-3">
@@ -133,6 +142,7 @@ const ResisterRider = () => {
                                  name="profilePicture"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder=" Profile picture...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-3">
@@ -142,39 +152,44 @@ const ResisterRider = () => {
                                  name="area"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Enter your area...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-2">
-                              <label htmlFor="carName">Car Name</label>
+                              <label htmlFor="carName">Vehicle Name</label>
                               <input
                                  type="text"
                                  name="carName"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
-                                 placeholder="Enter your car name...!!"
+                                 placeholder="Enter your vehicle name...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-2">
-                              <label htmlFor="carPalate">Car Palate</label>
+                              <label htmlFor="carPalate">Vehicle Palate</label>
                               <input
                                  type="text"
                                  name="carPalate"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
-                                 placeholder="Enter your car palate...!!"
+                                 placeholder="Enter your vehicle palate...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-3">
-                              <label htmlFor="carPalate">Car Model</label>
+                              <label htmlFor="carPalate">Vehicle Model</label>
                               <input
                                  type="text"
                                  name="carModel"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
-                                 placeholder="Enter your car model...!!"
+                                 placeholder="Enter your vehicle model...!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-5">
                               <label htmlFor="vehicle">Vehicle Type</label>
                               <select
                                  name="vehicle"
+                                 required
                                  className="select h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                               >
                                  <option disabled selected>
@@ -191,6 +206,7 @@ const ResisterRider = () => {
                                  name="password"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Enter your password..!!"
+                                 required
                               />
                            </div>
                            <div className="md:col-span-2">
@@ -202,6 +218,7 @@ const ResisterRider = () => {
                                  name="confirmPassword"
                                  className="h-10 block  border border-gray-500 focus:border-gray-900 focus:outline-none mt-1 rounded px-4 w-full bg-gray-50"
                                  placeholder="Enter your confirm password..!!"
+                                 required
                               />
                            </div>
                         </div>

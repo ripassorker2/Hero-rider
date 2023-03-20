@@ -5,7 +5,7 @@ const Login = () => {
    return (
       <div className=" bg-gray-100 py-6 flex flex-col justify-center sm:py-14">
          <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-purple-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
             <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                <div className="max-w-md mx-auto">
                   <div>
@@ -48,7 +48,7 @@ const Login = () => {
                            </label>
                         </div>
                         <div className="relative">
-                           <button className="bg-blue-500 text-white rounded-md px-2 py-1">
+                           <button className="bg-purple-500 text-white rounded-md px-4 py-1.5">
                               Submit
                            </button>
                         </div>
@@ -56,7 +56,7 @@ const Login = () => {
                            If you don't have account!! Please
                            <Link
                               to={"/resister"}
-                              className="text-blue-600 underline"
+                              className="text-purple-600 underline"
                            >
                               {" "}
                               Sign up
