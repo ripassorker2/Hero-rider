@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const Navbar = () => {
+   const { user, logout } = useContext(AuthContext);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    return (
       <div className="bg-gray-900 ">
@@ -11,14 +13,25 @@ const Navbar = () => {
                   Hero Rider
                </Link>
                <ul className="items-center hidden space-x-8 lg:flex">
-                  <li>
-                     <Link
-                        to={"/login"}
-                        className="tracking-wide text-lg text-gray-100 transition-colors duration-500 hover:text-purple-600"
-                     >
-                        Login
-                     </Link>
-                  </li>
+                  {user?.uid ? (
+                     <li>
+                        <button
+                           onClick={() => logout()}
+                           className="bg-purple-500 rounded px-4 p-1.5 text-gray-100 hover:bg-purple-500 duration-500"
+                        >
+                           LogOut
+                        </button>
+                     </li>
+                  ) : (
+                     <li>
+                        <Link
+                           to={"/login"}
+                           className="bg-purple-500 rounded px-4 p-1.5 text-gray-100 hover:bg-purple-500 duration-500"
+                        >
+                           Login
+                        </Link>
+                     </li>
+                  )}
                </ul>
                <div className="lg:hidden">
                   <button
