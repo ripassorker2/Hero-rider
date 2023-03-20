@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import SmallLoader from "../../utilities/SmallLoader";
 
 const ResisterRider = () => {
+   const { createUser, updateUserProfile } = useContext(AuthContext);
+   const [loading, setLoading] = useState(false);
+   const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_key}`;
    const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.target;
@@ -25,24 +30,73 @@ const ResisterRider = () => {
          return toast.error("Password doesn't match");
       }
 
-      const userInfo = {
-         name,
-         email,
-         age,
-         area,
-         address,
-         phone,
-         vehicleModel,
-         vehicleName,
-         vehiclePalate,
-         vehicle,
-         licencePicture,
-         nidPicture,
-         profilePicture,
-         password,
-         confirmPassword,
-      };
-      console.log(userInfo);
+      createUser(email, password)
+         .then((result) => {
+            setLoading(true);
+            const formData = new FormData();
+            formData.append("image", profilePicture);
+            fetch(url, {
+               method: "POST",
+               body: formData,
+            })
+               .then((res) => res.json())
+               .then((data) => {
+                  const profileImage = data.data.display_url;
+                  updateUserProfile(name, profileImage)
+                     .then((data) => {
+                        const formData = new FormData();
+                        formData.append("image", licencePicture);
+                        fetch(url, {
+                           method: "POST",
+                           body: formData,
+                        })
+                           .then((res) => res.json())
+                           .then((data) => {
+                              const licenceImage = data.data.display_url;
+
+                              const formData = new FormData();
+                              formData.append("image", profilePicture);
+                              fetch(url, {
+                                 method: "POST",
+                                 body: formData,
+                              })
+                                 .then((res) => res.json())
+                                 .then((data) => {
+                                    const nidImage = data.data.display_url;
+                                    const userInfo = {
+                                       name,
+                                       email,
+                                       age,
+                                       area,
+                                       address,
+                                       phone,
+                                       role: "rider",
+                                       vehicleModel,
+                                       vehicleName,
+                                       vehiclePalate,
+                                       vehicle,
+                                       licencePicture: licenceImage,
+                                       nidPicture: nidImage,
+                                       profilePicture: profileImage,
+                                       password,
+                                       confirmPassword,
+                                    };
+                                    console.log(userInfo);
+                                 });
+                           });
+                        toast.success("Created user succesfully...!!");
+                        setLoading(false);
+                     })
+                     .catch((err) => {
+                        setLoading(false);
+                        return toast.error(err.message);
+                     });
+               });
+         })
+         .catch((err) => {
+            setLoading(false);
+            return toast.error(err.message);
+         });
    };
 
    return (
@@ -227,7 +281,7 @@ const ResisterRider = () => {
                               type="submit"
                               className="bg-purple-500 hover:bg-purple-600 rounded px-4 py-1.5  font-semibold text-gray-100 "
                            >
-                              Submit
+                              {loading ? <SmallLoader /> : "Submit"}
                            </button>
                         </div>
                      </div>

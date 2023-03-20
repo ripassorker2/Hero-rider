@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const ResisterLearner = () => {
+   const { createUser, updateUserProfile, loading, setLoading } =
+      useContext(AuthContext);
+
    const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.target;
@@ -10,13 +14,8 @@ const ResisterLearner = () => {
       const age = form.age.value;
       const phone = form.phone.value;
       const address = form.address.value;
-      const licencePicture = form.licencePicture.files[0];
       const nidPicture = form.nidPicture.files[0];
       const profilePicture = form.profilePicture.files[0];
-      const area = form.area.value;
-      const carName = form.carName.value;
-      const carPalate = form.carPalate.value;
-      const carModel = form.carModel.value;
       const vehicle = form.vehicle.value;
       const password = form.password.value;
       const confirmPassword = form.confirmPassword.value;
@@ -29,7 +28,7 @@ const ResisterLearner = () => {
          name,
          email,
          age,
-         area,
+
          address,
          phone,
          vehicle,
