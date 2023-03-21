@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
 
 const Login = () => {
@@ -18,9 +19,11 @@ const Login = () => {
          .then((result) => {
             setLoading(true);
             console.log(result.user);
+            const userInfo = { email };
+            saveUserAndsetToken(userInfo);
             toast.success("User login succesfully...!!");
-            event.target.reset();
             setLoading(false);
+            event.target.reset();
          })
          .catch((err) => {
             setLoading(false);

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
 
 const ResisterRider = () => {
@@ -78,10 +79,8 @@ const ResisterRider = () => {
                                        licencePicture: licenceImage,
                                        nidPicture: nidImage,
                                        profilePicture: profileImage,
-                                       password,
-                                       confirmPassword,
                                     };
-                                    console.log(userInfo);
+                                    saveUserAndsetToken(userInfo);
                                  });
                            });
                         form.reset();

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
 
 const ResisterLearner = () => {
@@ -49,7 +50,6 @@ const ResisterLearner = () => {
                            .then((res) => res.json())
                            .then((data) => {
                               const nidImage = data.data.display_url;
-
                               const userInfo = {
                                  name,
                                  email,
@@ -60,10 +60,8 @@ const ResisterLearner = () => {
                                  vehicle,
                                  nidPicture: nidImage,
                                  profilePicture: profileImage,
-                                 password,
-                                 confirmPassword,
                               };
-                              console.log(userInfo);
+                              saveUserAndsetToken(userInfo);
                            });
                         form.reset();
                         toast.success("Created learner user succesfully...!!");
