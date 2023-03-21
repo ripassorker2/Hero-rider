@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
@@ -7,6 +8,7 @@ import SmallLoader from "../../utilities/SmallLoader";
 const ResisterRider = () => {
    const { createUser, updateUserProfile } = useContext(AuthContext);
    const [loading, setLoading] = useState(false);
+   const navigate = useNavigate();
    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_key}`;
    const handleSubmit = (event) => {
       event.preventDefault();
@@ -54,7 +56,6 @@ const ResisterRider = () => {
                            .then((res) => res.json())
                            .then((data) => {
                               const licenceImage = data.data.display_url;
-
                               const formData = new FormData();
                               formData.append("image", nidPicture);
                               fetch(url, {
@@ -85,6 +86,7 @@ const ResisterRider = () => {
                            });
                         form.reset();
                         toast.success("Created rider user succesfully...!!");
+                        navigate("/");
                         setLoading(false);
                      })
                      .catch((err) => {

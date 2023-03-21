@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
@@ -8,6 +8,9 @@ import SmallLoader from "../../utilities/SmallLoader";
 const Login = () => {
    const { signin } = useContext(AuthContext);
    const [loading, setLoading] = useState(false);
+   const navigate = useNavigate();
+   const location = useLocation();
+   const from = location.state?.from?.pathname || "/";
 
    const handleLogin = (event) => {
       event.preventDefault();
@@ -24,6 +27,7 @@ const Login = () => {
             toast.success("User login succesfully...!!");
             setLoading(false);
             event.target.reset();
+            navigate(from, { replace: true });
          })
          .catch((err) => {
             setLoading(false);

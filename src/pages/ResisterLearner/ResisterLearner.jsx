@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import { saveUserAndsetToken } from "../../utilities/saveUserAndToken";
 import SmallLoader from "../../utilities/SmallLoader";
@@ -8,7 +9,7 @@ const ResisterLearner = () => {
    const { createUser, updateUserProfile } = useContext(AuthContext);
    const [loading, setLoading] = useState(false);
    const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_Imgbb_key}`;
-
+   const navigate = useNavigate();
    const handleSubmit = (event) => {
       event.preventDefault();
       const form = event.target;
@@ -65,6 +66,7 @@ const ResisterLearner = () => {
                            });
                         form.reset();
                         toast.success("Created learner user succesfully...!!");
+                        navigate("/");
                         setLoading(false);
                      })
                      .catch((err) => {
