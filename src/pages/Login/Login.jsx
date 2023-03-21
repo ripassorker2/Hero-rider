@@ -14,10 +14,9 @@ const Login = () => {
 
    const handleLogin = (event) => {
       event.preventDefault();
-
+      setLoading(true);
       const email = event.target.email.value;
       const password = event.target.password.value;
-
       signin(email, password)
          .then((result) => {
             setLoading(true);
@@ -25,8 +24,8 @@ const Login = () => {
             const userInfo = { email };
             saveUserAndsetToken(userInfo);
             toast.success("User login succesfully...!!");
-            setLoading(false);
             event.target.reset();
+            setLoading(false);
             navigate(from, { replace: true });
          })
          .catch((err) => {

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import useRole from "../../utilities/useRole";
 
 const Navbar = () => {
    const { user, logout } = useContext(AuthContext);
    const [isMenuOpen, setIsMenuOpen] = useState(false);
+   const [isRole] = useRole(user?.email);
    return (
       <div className="bg-gray-900 ">
          <div className="px-4 py-5 mx-auto max-w-screen-xl w-full">
@@ -13,6 +15,18 @@ const Navbar = () => {
                   Hero Rider
                </Link>
                <ul className="items-center hidden space-x-8 lg:flex">
+                  <Link to={"/"}>
+                     <button className=" text-gray-100 hover:text-purple-500 text-lg duration-500">
+                        Profile
+                     </button>
+                  </Link>
+                  {isRole.role === "learner" && (
+                     <Link to={"/courses"}>
+                        <button className=" text-gray-100 hover:text-purple-500 text-lg duration-500">
+                           Course
+                        </button>
+                     </Link>
+                  )}
                   {user?.uid ? (
                      <li>
                         <button

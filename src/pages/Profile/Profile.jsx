@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
+import Loader from "../../utilities/Loader";
 
 const Profile = () => {
+   const { user } = useContext(AuthContext);
+   const [loading, setLoading] = useState(false);
+   const [userInfo, setUserInfo] = useState({});
+   //    const { data: userInfo = [], isLoading } = useQuery({
+   //       queryKey: ["user.email"],
+   //       queryFn: async () => {
+   //          const res = await fetch(`http://localhost:5000/users/${user?.email}`, {
+   //             // headers: {
+   //             //    authorization: `berarer ${localStorage.getItem("access-token")}`,
+   //             // },
+   //          });
+   //          const data = await res.json();
+   //          return data;
+   //       },
+   //    });
+   //    console.log(userInfo);
+
+   useEffect(() => {
+      if (user.email) {
+         setLoading(true);
+         fetch(`http://localhost:5000/users/${user?.email}`).then((res) =>
+            res.json().then((data) => {
+               setUserInfo(data);
+               setLoading(false);
+            })
+         );
+      }
+   }, [user]);
+
+   if (loading) {
+      return <Loader />;
+   }
+
    return (
       <div className="px-4 py-12 mx-auto max-w-screen-xl w-full">
          <h2 className="font-semibold md:text-3xl text-xl border-b-2 mb-4 inline-block border-purple-500  text-gray-600">
@@ -9,14 +44,14 @@ const Profile = () => {
          <div className="mt-5">
             <img
                className="h-24 w-24 rounded-full border border-purple-500"
-               src="https://www.netsolutions.com/insights/wp-content/uploads/2020/12/the-10-best-rideshare-apps-of-2021.webp"
+               src={userInfo.profilePicture}
                alt=""
             />
             <div className="flex items-center">
-               <h3 className="text-xl font-semibold">Ripas Sorker Rifat</h3>
-               <p>(Rider)</p>
+               <h3 className="text-xl font-semibold">{userInfo?.name}</h3>
+               <p>({userInfo?.role})</p>
             </div>
-            <p>ripassorkerrifat@gmail.com</p>
+            <p>{userInfo?.email}</p>
          </div>
          <div className="grid md:grid-cols-3 gap-6">
             <div>
@@ -24,19 +59,34 @@ const Profile = () => {
                   <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
                      Personal Information
                   </h3>
-                  <p> Age : 21</p>
-                  <p> Phone : 01744876681</p>
-                  <p> Riding Area : Banani Dhaha</p>
-                  <p> Address : Dhaka Bangladesh</p>
+                  <p> Age : {userInfo?.age}</p>
+                  {userInfo?.vehicle && (
+                     <p> Rider type : {userInfo.vehicle} </p>
+                  )}
+                  {userInfo?.role === "learner" && (
+                     <p>Learning topic : {userInfo.vehicle}</p>
+                  )}
+                  <p> Phone : {userInfo?.phone}</p>
+                  <p> Address : {userInfo?.address}</p>
                </div>
-               <div className="mt-3">
-                  <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
-                     Vehicle Information
-                  </h3>
-                  <p> Vehicle type : 21</p>
-                  <p> Vehicle model: 01744876681</p>
-                  <p> Vehicle paalate : Banani Dhaha</p>
-               </div>
+
+               {userInfo?.vehicleName && (
+                  <div className="mt-3">
+                     <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
+                        Vehicle Information
+                     </h3>
+                     {userInfo?.vehicleName && (
+                        <p> Vehicle name : {userInfo.vehicleName} </p>
+                     )}
+                     {userInfo?.area && <p> Riding Area : {userInfo.area} </p>}
+                     {userInfo?.vehicleModel && (
+                        <p> Vehicle model : {userInfo.vehicleModel} </p>
+                     )}
+                     {userInfo?.vehiclePalate && (
+                        <p> Vehicle paalate : {userInfo.vehiclePalate} </p>
+                     )}
+                  </div>
+               )}
             </div>
             <div>
                <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
@@ -44,22 +94,24 @@ const Profile = () => {
                </h3>
                <figure>
                   <img
-                     className="w-full bg-cover rounded border border-purple-500 hover:scale-105 overflow-hidden duration-500"
-                     src="https://www.tbsnews.net/sites/default/files/styles/amp_metadata_content_image_min_696px_wide/public/images/2023/01/01/web-national-id-edited-26-11-2017-1532158137905.jpg"
+                     className="w-full max-h-[250px] min-h-[250px] bg-cover rounded border border-purple-500 hover:scale-105 overflow-hidden duration-500"
+                     src={userInfo.nidPicture}
                      alt=""
                   />
                </figure>
             </div>
-            <div>
-               <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
-                  Driving licence
-               </h3>
-               <img
-                  className="w-full bg-cover rounded border border-purple-500 hover:scale-105 overflow-hidden duration-500"
-                  src="https://media.istockphoto.com/id/1073597286/vector/driver-license-with-male-photo-identification-or-id-card-template-vector-illustration.jpg?s=170667a&w=is&k=20&c=ZGfrRxbVbSOjW5dV0XKrfYOYHIuOJwo4Du3R5NDxcFY="
-                  alt=""
-               />
-            </div>
+            {userInfo?.licencePicture && (
+               <div>
+                  <h3 className="text-xl font-semibold border-b-2 mb-4 inline-block border-purple-500">
+                     Driving licence
+                  </h3>
+                  <img
+                     className="w-full max-h-[250px] min-h-[250px] bg-cover rounded border border-purple-500 hover:scale-105 overflow-hidden duration-500"
+                     src={userInfo.licencePicture}
+                     alt=""
+                  />
+               </div>
+            )}
          </div>
       </div>
    );
